@@ -1,3 +1,17 @@
+<<<<<<< HEAD
+<?php
+// Connexion au serveur
+try {
+  $dns = 'mysql:host=localhost;dbname=bibliodrive'; // dbname : nom de la base
+  $utilisateur = 'root'; // root sur vos postes
+  $motDePasse = ''; // pas de mot de passe sur vos postes
+  $connexion = new PDO( $dns, $utilisateur, $motDePasse );
+} catch (Exception $e) {
+  echo "Connexion à MySQL impossible : ", $e->getMessage();
+  die();
+}
+
+=======
 <?php
 // Connexion au serveur
 try {
@@ -31,4 +45,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $conn->close();
 }
 
+>>>>>>> c85c03331bd689311edb1e5c21554f175d34b421
 ?>
