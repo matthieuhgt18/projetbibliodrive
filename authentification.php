@@ -30,5 +30,25 @@ if (!isset($_POST['btnSeConnecter'])) { /* L'entrée btnSeConnecter est vide = l
       }
   
   }
+
+
+// Bouton se déconnecter
+
+  if (!isset($_POST['btnSeConnecter'])) 
+    echo ''          
   
+  
+
+
+
+
+
+
+
+
+// Traitement de la déconnexion !
+
+   (!isset($_POST['btnSeConnecter'])) 
+  
+
   ?>
