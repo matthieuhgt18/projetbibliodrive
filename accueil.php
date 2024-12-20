@@ -15,7 +15,6 @@ require_once("connexion.php");
 
 ?>
 
-  
                 <!-- Barre de navigation -->
 <body>
     <div class="container text-center">
@@ -34,7 +33,9 @@ require_once("connexion.php");
         </div>
         <div class="row">
             <div class="col-sm-9">
+
                  <!-- Carrousel des livres -->
+                  
  <div class="row">
     <div class="col-sm-9">
         <h2 class="text-center mb-4">Dernières acquisitions</h2>
