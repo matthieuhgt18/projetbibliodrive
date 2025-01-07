@@ -1,54 +1,44 @@
 <?php
 include 'config.php';
 
-// Vérifier si un auteur est recherché
-$nomAuteur = $_GET['author'] ?? '';
-$livres = [];
-if (!empty($nomAuteur)) {
-    $stmt = $pdo->prepare("SELECT l.nolivre, l.titre 
-                           FROM livre l
-                           JOIN auteur a ON l.noauteur = a.noauteur
-                           WHERE a.nom LIKE :nomAuteur");
-    $stmt->execute(['nomAuteur' => '%' . $nomAuteur . '%']);
-    $livres = $stmt->fetchAll(PDO::FETCH_ASSOC);
-}
+<?php
+// Démarrage de la session, instruction a placer en tête de script
+session_start();
 ?>
-
 <!DOCTYPE html>
+
 <html lang="fr">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Liste des livres</title>
-    <!-- Liens Bootstrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<title>Accueil</title>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
 </head>
 <body>
-    <!-- Barre de navigation -->
-    <nav class="navbar navbar-light bg-light">
-        <a class="navbar-brand" href="accueil.php">Biblio-Drive</a>
-        <form class="form-inline" action="lister_livres.php" method="get">
-            <input class="form-control mr-sm-2" type="search" name="author" placeholder="Rechercher un auteur" value="<?= htmlspecialchars($nomAuteur) ?>">
-            <button class="btn btn-outline-success" type="submit">Rechercher</button>
-        </form>
-    </nav>
+<div class="container text-center">
 
-    <!-- Liste des livres -->
-    <div class="container mt-4">
-        <h2>Résultats de recherche</h2>
-        <?php if (empty($livres)): ?>
-            <p>Aucun livre trouvé pour cet auteur.</p>
-        <?php else: ?>
-            <ul class="list-group">
-                <?php foreach ($livres as $livre): ?>
-                    <li class="list-group-item">
-                        <a href="detail.php?nolivre=<?= $livre['nolivre'] ?>">
-                            <?= htmlspecialchars($livre['titre']) ?>
-                        </a>
-                    </li>
-                <?php endforeach; ?>
-            </ul>
-        <?php endif; ?>
-    </div>
+<?php
+include 'barre.php';
+?>
+
+
+<div class="row">
+<div class="col-sm-9" style="background-color:lavender;">
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+</div>
+
+
+<?php
+include 'identification.php';
+?>
+
+</div>
+</div>
 </body>
+
 </html>
