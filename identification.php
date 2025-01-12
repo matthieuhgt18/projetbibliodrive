@@ -37,7 +37,6 @@ if (isset($_SESSION['prenom'])) { // Vérifier si l'utilisateur est connecté
     if (isset($_POST['btnSeDeconnecter'])) {
         session_unset(); // Supprimer toutes les variables de session
         session_destroy(); // Détruire la session
-        header('Location: accueil.php'); // Rediriger vers la page d'accueil
     }
 
 } else {

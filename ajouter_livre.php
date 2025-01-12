@@ -12,30 +12,35 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Récupération des données du formulaire
         $auteur_id = $_POST['auteur'];
         $titre = $_POST['titre'];
-        $isbn = $_POST['isbn'];
-        $annee_parution = $_POST['annee_parution'];
-        $resume = $_POST['resume'];
+        $isbn13 = $_POST['isbn'];  // ISBN13
+        $anneeparution = $_POST['annee_parution'];
+        $detail = $_POST['resume'];  // Resume -> detail
 
         // Vérifier si un fichier a été téléchargé et qu'il n'y a pas d'erreur
-if (!empty($_FILES['image']['name']) && $_FILES['image']['error'] == 0) {
-    // Définir le chemin où l'image sera enregistrée
-    $image_path = "images/" . basename($_FILES['image']['name']);
-    
-    // Déplacer l'image du répertoire temporaire vers le dossier cible
-    move_uploaded_file($_FILES['image']['tmp_name'], $image_path);
-} else {
-    // Si aucun fichier n'est téléchargé, définir l'image comme null
-    $image_path = null;
-}
+        if (!empty($_FILES['image']['name']) && $_FILES['image']['error'] == 0) {
+            // Définir le chemin où l'image sera enregistrée
+            $image_directory = "images/"; // Dossier où l'image sera enregistrée
+            $image_name = basename($_FILES['image']['name']); // Nom de l'image
+            $image_path = $image_directory . $image_name;  // Chemin complet vers l'image
 
-        
+            // Vérifier si le dossier existe, sinon le créer
+            if (!file_exists($image_directory)) {
+                mkdir($image_directory, 0777, true);  // Créer le dossier avec des permissions en lecture/écriture
+            }
+
+            // Déplacer l'image du répertoire temporaire vers le dossier cible
+            move_uploaded_file($_FILES['image']['tmp_name'], $image_path);
+        } else {
+            // Si aucun fichier n'est téléchargé, définir l'image comme null
+            $image_path = null;
+        }
 
         // Insertion des données dans la table livre
         $stmt = $conn->prepare("
-            INSERT INTO livre (auteur_id, titre, isbn, annee_parution, resume, image, date_ajout)
+            INSERT INTO livre (noauteur, titre, isbn13, anneeparution, detail, photo, dateajout)
             VALUES (?, ?, ?, ?, ?, ?, NOW())
         ");
-        $stmt->execute([$auteur_id, $titre, $isbn, $annee_parution, $resume, $image_path]);
+        $stmt->execute([$auteur_id, $titre, $isbn13, $anneeparution, $detail, $image_path]);
 
         $message = "Livre ajouté avec succès !";
     } catch (PDOException $e) {
@@ -66,12 +71,12 @@ if (!empty($_FILES['image']['name']) && $_FILES['image']['error'] == 0) {
                 $query = "SELECT noauteur, prenom, nom FROM auteur";
                 $result = $conn->query($query);
 
-                if ($result && $result->rowCount() > 0) { // Vérifie si cela contient vraiment la requête "auteurs" est confirmée
+                if ($result && $result->rowCount() > 0) {
                     // Remplir la liste déroulante avec les résultats
                     while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
-                        $id = htmlspecialchars($row['noauteur']);
-                        $prenom = htmlspecialchars($row['prenom']);
-                        $nom = htmlspecialchars($row['nom']);
+                        $id = ($row['noauteur']);
+                        $prenom = ($row['prenom']);
+                        $nom = ($row['nom']);
                         echo "<option value='$id'>$prenom $nom</option>";
                     }
                 } else {

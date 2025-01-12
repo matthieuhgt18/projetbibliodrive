@@ -1,5 +1,3 @@
-
-
 <?php
 // Démarrage de la session, instruction a placer en tête de script
 session_start();
@@ -33,9 +31,6 @@ session_start();
 
 
         <!-- CAROUSSEL -->
-
-
-
         <?php
             // prend toutes les collones dans la table livre pour les 3 derniers livres
             require_once('connexion.php');
@@ -49,20 +44,20 @@ session_start();
             $couverture3 = $livres->fetch();
         ?>
 
-<div id="demo" class="carousel slide " data-bs-ride="carousel">
+    <div id="demo" class="carousel slide " data-bs-ride="carousel">
     <div class="carousel-indicators">  <!-- Indicateurs du carrousel -->
         <button type="button" data-bs-target="#demo" data-bs-slide-to="0" class="active"></button>
         <button type="button" data-bs-target="#demo" data-bs-slide-to="1"></button>
         <button type="button" data-bs-target="#demo" data-bs-slide-to="2"></button>
     </div>
 
-    <div class="carousel-inner"> <!-- Contenu du carrousel -->
+        <div class="carousel-inner"> <!-- Contenu du carrousel -->
         <!-- Premier élément du carrousel -->
         <div class="carousel-item active">
             <img src=".\covers\<?php echo $couverture1->photo ?>" alt="<?php echo $couverture1->titre ?>" class="d-block mx-auto w-50">
             <!-- Afficher le titre sous l'image -->
             <div class="text-center mt-2">
-                <h5><?php echo htmlspecialchars($couverture1->titre); ?></h5>
+                <h5><?php echo ($couverture1->titre); ?></h5>
             </div>
         </div>
 
@@ -70,7 +65,7 @@ session_start();
         <div class="carousel-item">
             <img src=".\covers\<?php echo $couverture2->photo ?>" alt="<?php echo $couverture2->titre ?>" class="d-block mx-auto w-50">
             <div class="text-center mt-2">
-                <h5><?php echo htmlspecialchars($couverture2->titre); ?></h5>
+                <h5><?php echo ($couverture2->titre); ?></h5>
             </div>
         </div>
 
@@ -78,7 +73,7 @@ session_start();
         <div class="carousel-item">
             <img src=".\covers\<?php echo $couverture3->photo ?>" alt="<?php echo $couverture3->titre ?>" class="d-block mx-auto w-50">
             <div class="text-center mt-2">
-                <h5><?php echo htmlspecialchars($couverture3->titre); ?></h5>
+                <h5><?php echo ($couverture3->titre); ?></h5>
             </div>
         </div>
     </div>
@@ -105,4 +100,4 @@ session_start();
     </div>
 </body>
 
-</html>  
+</html> 
